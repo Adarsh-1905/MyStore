@@ -12,7 +12,7 @@
   },
   "forwardPorts": [4200, 8080],
   "postCreateCommand": "# Install frontend deps and verify Maven/Java\ncd frontend && if [ -f package.json ]; then npm ci; fi && cd .. && mvn -v || true",
-  "postStartCommand": "echo 'Devcontainer ready. Run the VS Code task \"Start Dev Servers\" (Terminal → Run Task) to start frontend and backend.'",
+  "postStartCommand": "bash ./.devcontainer/start-servers.sh",
   "customizations": {
     "vscode": {
       "extensions": [
