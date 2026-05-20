@@ -1,15 +1,25 @@
 {
   "name": "MyStore Dev",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-  "forwardPorts": [4200, 3000, 5000, 8000],
-  "postCreateCommand": "cd backend && if [ -f package.json ]; then npm ci; fi && cd ../frontend && if [ -f package.json ]; then npm ci; fi",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/java": {
+      "version": "17"
+    },
+    "ghcr.io/devcontainers/features/maven": {}
+  },
+  "forwardPorts": [4200, 8080],
+  "postCreateCommand": "# Install frontend deps and verify Maven/Java\ncd frontend && if [ -f package.json ]; then npm ci; fi && cd .. && mvn -v || true",
   "postStartCommand": "echo 'Devcontainer ready. Run the VS Code task \"Start Dev Servers\" (Terminal → Run Task) to start frontend and backend.'",
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.vscode-typescript-next",
         "esbenp.prettier-vscode",
-        "angular.ng-template"
+        "angular.ng-template",
+        "vscjava.vscode-java-pack"
       ]
     }
   },
