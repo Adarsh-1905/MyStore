@@ -16,13 +16,27 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "tsconfig.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"]
-          }
+            "styles": ["src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "mystore-frontend:build:production"
@@ -35,5 +49,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "7cdc3fe9-e8ff-4f30-94f0-1d9906e91fd3"
   }
 }

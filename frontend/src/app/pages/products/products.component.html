@@ -1,0 +1,29 @@
+<section class="products-shell">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Fresh Vegetables</p>
+      <h2>Available products</h2>
+      <p class="lead">Browse our curated list of fresh vegetables ready for your next meal.</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="status-card">Loading products...</div>
+  <div *ngIf="errorMessage" class="status-card error">{{ errorMessage }}</div>
+
+  <div *ngIf="successMessage" class="status-card success">{{ successMessage }}</div>
+
+  <div class="product-grid" *ngIf="!loading && !errorMessage">
+    <article class="product-card" *ngFor="let product of products">
+      <div class="product-meta">
+        <span class="product-category">{{ product.category }}</span>
+        <span class="product-unit">{{ product.unit }}</span>
+      </div>
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <div class="product-footer">
+        <strong>{{ product.price | currency:'INR':'symbol':'1.2-2' }}</strong>
+        <button (click)="addToCart(product)">Add to cart</button>
+      </div>
+    </article>
+  </div>
+</section>

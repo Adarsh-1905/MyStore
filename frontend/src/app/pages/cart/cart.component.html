@@ -1,0 +1,42 @@
+<section class="cart-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Your cart</p>
+      <h2>Cart items</h2>
+      <p class="lead">Review your selected vegetables and place the order.</p>
+    </div>
+    <a routerLink="/products" class="secondary-button">Continue shopping</a>
+  </div>
+
+  <div *ngIf="orderPlaced" class="alert success">{{ successMessage }}</div>
+  <div *ngIf="!cartItems.length" class="alert info">Your cart is empty. Add vegetables from the products page.</div>
+
+  <div *ngIf="cartItems.length" class="cart-content">
+    <div class="cart-list">
+      <article class="cart-card" *ngFor="let item of cartItems">
+        <div>
+          <p class="cart-name">{{ item.productName }}</p>
+          <p class="cart-category">{{ item.category }}</p>
+          <p>{{ item.unit }}</p>
+        </div>
+        <div class="cart-actions">
+          <label>
+            Qty
+            <input type="number" min="1" [value]="item.quantity" (change)="updateQuantity(item, $event)" />
+          </label>
+          <p class="cart-price">{{ item.unitPrice | currency:'INR':'symbol':'1.2-2' }}</p>
+          <button class="remove-button" (click)="removeItem(item.productId)">Remove</button>
+        </div>
+      </article>
+    </div>
+
+    <aside class="cart-summary">
+      <div class="summary-card">
+        <h3>Order summary</h3>
+        <p>{{ cartItems.length }} item(s)</p>
+        <p class="summary-total">Total: {{ total | currency:'INR':'symbol':'1.2-2' }}</p>
+        <button class="primary-button" (click)="placeOrder()">Place order</button>
+      </div>
+    </aside>
+  </div>
+</section>

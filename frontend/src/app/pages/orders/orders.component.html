@@ -1,0 +1,32 @@
+<section class="orders-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Order history</p>
+      <h2>Your purchases</h2>
+      <p class="lead">View completed orders and browse again whenever you need fresh vegetables.</p>
+    </div>
+    <a routerLink="/products" class="secondary-button">Back to products</a>
+  </div>
+
+  <div *ngIf="!orders.length" class="alert info">No orders yet. Add products to your cart and place an order.</div>
+
+  <div class="orders-list" *ngIf="orders.length">
+    <article class="order-card" *ngFor="let order of orders">
+      <div class="order-header">
+        <div>
+          <p class="order-id">Order #{{ order.orderId }}</p>
+          <p class="order-date">{{ order.placedAt | date:'medium' }}</p>
+        </div>
+        <p class="order-total">{{ order.total | currency:'INR':'symbol':'1.2-2' }}</p>
+      </div>
+
+      <div class="order-items">
+        <div class="order-item" *ngFor="let item of order.items">
+          <p class="item-name">{{ item.productName }}</p>
+          <p class="item-detail">{{ item.quantity }} x {{ item.unit }}</p>
+          <p class="item-price">{{ item.totalPrice | currency:'INR':'symbol':'1.2-2' }}</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
